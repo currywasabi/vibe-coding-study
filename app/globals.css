@@ -1,81 +1,134 @@
 @import "tailwindcss";
 
 :root {
-  --term-bg: #0c0f0a;
-  --term-fg: #33ff33;
-  --term-dim: #1f8a1f;
-  --term-amber: #ffb000;
+  --xp-page-bg: #dce9f8;
+  --xp-blue-dark: #0b47a5;
+  --xp-blue: #3f8ee6;
+  --xp-blue-light: #7ba7e8;
+  --xp-panel-border: #7f9db9;
+  --xp-content-bg: #ffffff;
+  --xp-heading: #0b3f8f;
+  --xp-text: #1b1b1b;
+  --xp-muted: #5a6b8c;
+  --xp-link: #0b46a0;
+  --xp-link-hover: #c14a00;
+  --xp-tag-bg: #dbe9f9;
+  --xp-tag-border: #b9d3ef;
+  --xp-green: #4f9c22;
+  --xp-green-bg: #eaf7df;
+  --xp-green-border: #bfe3a0;
+  --xp-statusbar-bg: #ece9d8;
+  --xp-statusbar-border: #c8c3ac;
 }
 
 @theme inline {
-  --color-background: var(--term-bg);
-  --color-foreground: var(--term-fg);
+  --color-background: var(--xp-page-bg);
+  --color-foreground: var(--xp-text);
 }
 
 html {
-  background: var(--term-bg);
+  background: #4a9ce8;
 }
 
 body {
-  background: var(--term-bg);
-  color: var(--term-fg);
-  font-family: "D2Coding", "Nanum Gothic Coding", "Consolas", "Courier New",
-    monospace;
-  text-shadow: 0 0 1px rgba(51, 255, 51, 0.5), 0 0 6px rgba(51, 255, 51, 0.25);
-  position: relative;
+  background: transparent;
+  color: var(--xp-text);
+  font-family: Tahoma, "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo",
+    "Segoe UI", Verdana, sans-serif;
 }
 
-/* CRT scanline overlay */
-body::before {
-  content: "";
+/* 유명한 XP 기본 배경화면(Bliss) CSS 재현 */
+.xp-bliss {
   position: fixed;
   inset: 0;
-  pointer-events: none;
-  z-index: 50;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0px,
-    rgba(0, 0, 0, 0) 1px,
-    rgba(0, 0, 0, 0.25) 2px
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    #1c6fd0 0%,
+    #4a9ce8 34%,
+    #a5d8f5 60%,
+    #dff0fb 74%,
+    #dff0fb 100%
   );
 }
 
-/* Subtle screen flicker */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 51;
-  background: rgba(51, 255, 51, 0.02);
-  animation: flicker 6s infinite;
+.xp-cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: 50%;
+  filter: blur(10px);
 }
 
-@keyframes flicker {
-  0%, 100% { opacity: 1; }
-  92% { opacity: 1; }
-  93% { opacity: 0.85; }
-  94% { opacity: 1; }
+.xp-cloud-1 {
+  left: -6%;
+  top: 18%;
+  width: 38%;
+  height: 9%;
+  animation: xp-drift 90s linear infinite alternate;
 }
 
-.blink-cursor::after {
-  content: "_";
-  animation: blink 1s steps(1) infinite;
+.xp-cloud-2 {
+  right: 4%;
+  top: 9%;
+  width: 26%;
+  height: 7%;
+  background: rgba(255, 255, 255, 0.6);
+  filter: blur(12px);
+  animation: xp-drift 130s linear infinite alternate-reverse;
 }
 
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  50.01%, 100% { opacity: 0; }
+@keyframes xp-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(120px);
+  }
 }
 
-.term-link {
-  color: var(--term-fg);
-  text-decoration: underline;
-  text-decoration-color: var(--term-dim);
+.xp-hill-back {
+  position: absolute;
+  left: -20%;
+  right: 40%;
+  bottom: -24%;
+  height: 46%;
+  background: radial-gradient(90% 100% at 60% 10%, #7ec13f 0%, #4d8b22 70%);
+  border-radius: 60% 40% 0 0/44% 34% 0 0;
+  opacity: 0.9;
 }
 
-.term-link:hover {
-  background: var(--term-fg);
-  color: var(--term-bg);
-  text-shadow: none;
+.xp-hill-front {
+  position: absolute;
+  left: -14%;
+  right: -14%;
+  bottom: -18%;
+  height: 64%;
+  background: radial-gradient(
+    120% 100% at 42% 8%,
+    #8fc94a 0%,
+    #63a52c 42%,
+    #3d7a1c 100%
+  );
+  border-radius: 56% 44% 0 0/38% 30% 0 0;
+  box-shadow: inset 0 6px 26px rgba(255, 255, 255, 0.35);
+}
+
+a {
+  color: var(--xp-link);
+}
+
+a:hover {
+  color: var(--xp-link-hover);
+}
+
+.xp-section-header {
+  display: inline-block;
+  padding: 3px 10px;
+  background: linear-gradient(90deg, var(--xp-blue-dark), var(--xp-blue));
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.8rem;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
 }
