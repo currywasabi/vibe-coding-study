@@ -2,45 +2,60 @@ import profile from "@/data/profile.json";
 import type { Profile } from "@/types/profile";
 
 const data: Profile = profile;
+const HOST = "guest@vibe-coding-study";
+
+function Prompt({ cmd }: { cmd: string }) {
+  return (
+    <p className="text-sm sm:text-base">
+      <span className="text-[var(--term-dim)]">{HOST}</span>
+      <span className="text-[var(--term-fg)]">:~$ </span>
+      <span>{cmd}</span>
+    </p>
+  );
+}
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white text-gray-900">
-      <div className="mx-auto max-w-2xl px-6 py-16 sm:py-24">
+    <main className="min-h-screen">
+      <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-16">
+        <pre className="mb-8 text-[10px] leading-tight sm:text-xs overflow-x-auto">
+{String.raw`+------------------------------------------+
+| VIBE-CODING-STUDY TERMINAL  v1.0          |
+| last login: ${new Date().getFullYear()}-01-01 on ttys000        |
++------------------------------------------+`}
+        </pre>
+
         {/* 소개 */}
-        <section>
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {data.name}
-          </h1>
-          <p className="mt-1 text-sm text-gray-500">{data.major}</p>
-          <p className="mt-6 text-base leading-relaxed text-gray-700">
-            {data.intro}
-          </p>
+        <section className="mb-10">
+          <Prompt cmd="whoami" />
+          <p className="mt-1 text-2xl font-bold sm:text-3xl">{data.name}</p>
+          <p className="mt-1 text-[var(--term-dim)]">{data.major}</p>
+
+          <div className="mt-4">
+            <Prompt cmd="cat about.txt" />
+            <p className="mt-1 leading-relaxed">{data.intro}</p>
+          </div>
         </section>
 
         {/* 프로젝트 */}
-        <section className="mt-14">
-          <h2 className="text-lg font-semibold text-gray-900">
-            진행한 프로젝트
-          </h2>
-          <ul className="mt-4 space-y-3">
+        <section className="mb-10">
+          <Prompt cmd="ls -la ./projects" />
+          <ul className="mt-2 space-y-3">
             {data.projects.map((project) => (
-              <li
-                key={project.title}
-                className="rounded-lg border border-gray-200 p-4 transition hover:border-gray-300"
-              >
+              <li key={project.title} className="border border-[var(--term-dim)] p-3">
                 <a
                   href={project.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex flex-wrap items-center justify-between gap-2"
+                  className="term-link flex flex-wrap items-baseline justify-between gap-2"
                 >
-                  <span className="font-medium text-gray-900">
+                  <span>
+                    <span className="text-[var(--term-amber)]">
+                      [{project.status}]
+                    </span>{" "}
                     {project.title}
                   </span>
-                  <span className="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-600">
-                    {project.status}
-                  </span>
+                  <span className="text-[var(--term-dim)]">-&gt; {project.url}</span>
                 </a>
               </li>
             ))}
@@ -48,52 +63,49 @@ export default function Home() {
         </section>
 
         {/* 관심사 & 취미 */}
-        <section className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2">
+        <section className="mb-10 grid grid-cols-1 gap-8 sm:grid-cols-2">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900">관심사</h2>
-            <div className="mt-4 flex flex-wrap gap-2">
+            <Prompt cmd="cat interests.txt" />
+            <ul className="mt-2 space-y-1">
               {data.interests.map((interest) => (
-                <span
-                  key={interest}
-                  className="rounded-full bg-gray-900 px-3 py-1 text-xs font-medium text-white"
-                >
-                  {interest}
-                </span>
+                <li key={interest}>&gt; {interest}</li>
               ))}
-            </div>
+            </ul>
           </div>
           <div>
-            <h2 className="text-lg font-semibold text-gray-900">취미</h2>
-            <div className="mt-4 flex flex-wrap gap-2">
+            <Prompt cmd="cat hobbies.txt" />
+            <ul className="mt-2 space-y-1">
               {data.hobbies.map((hobby) => (
-                <span
-                  key={hobby}
-                  className="rounded-full bg-gray-900 px-3 py-1 text-xs font-medium text-white"
-                >
-                  {hobby}
-                </span>
+                <li key={hobby}>&gt; {hobby}</li>
               ))}
-            </div>
+            </ul>
           </div>
         </section>
 
         {/* 링크 */}
-        <section className="mt-14">
-          <h2 className="text-lg font-semibold text-gray-900">링크</h2>
-          <div className="mt-4 flex flex-wrap gap-3">
+        <section className="mb-10">
+          <Prompt cmd="cat links.txt" />
+          <ul className="mt-2 space-y-1">
             {data.links.map((link) => (
-              <a
-                key={link.label}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
-              >
-                {link.label}
-              </a>
+              <li key={link.label}>
+                &gt;{" "}
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="term-link"
+                >
+                  {link.label} ({link.url})
+                </a>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
+
+        <p className="blink-cursor">
+          <span className="text-[var(--term-dim)]">{HOST}</span>
+          <span>:~$ </span>
+        </p>
       </div>
     </main>
   );
