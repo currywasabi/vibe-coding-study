@@ -1,0 +1,27 @@
+{
+  "name": "박건우",
+  "major": "산업경영공학부",
+  "intro": "산업경영공학부에서 백엔드 기초를 다지고 있는 박건우입니다.",
+  "projects": [
+    {
+      "title": "음악 앨범 취향 공유 서비스",
+      "status": "스터디",
+      "url": "https://github.com/currywasabi/my-topster"
+    },
+    {
+      "title": "군대 컨셉 생활습관 개선 서비스",
+      "status": "현재 폐쇄",
+      "url": "https://gitlab.com/inquirist-alpha/isegye-cpl-kim-be"
+    },
+    {
+      "title": "면 요리 전용 식사 기록 서비스",
+      "status": "출시 못함",
+      "url": "https://github.com/currywasabi/noodle-record-app"
+    }
+  ],
+  "interests": ["BE 기초 (echo 서버 등)"],
+  "hobbies": ["록 음악 앨범 청취"],
+  "links": [
+    { "label": "GitHub", "url": "https://github.com/currywasabi" }
+  ]
+}
